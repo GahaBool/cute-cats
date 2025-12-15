@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Милые котики</title>
+    
+    <!-- ФАВИКОНКИ -->
+    <link rel="icon" type="image/x-icon" href="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f408.svg">
+    <link rel="shortcut icon" href="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f408.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f408.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f408.png">
+    
+    <style>
+        :root {
+            /* Светлая тема (по умолчанию) */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f7fa;
+            --bg-tertiary: #e9ecef;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --text-muted: #888888;
+            --accent-color: #000000;
+            --accent-secondary: #333333;
+            --border-color: #dddddd;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
+            --button-bg: #000000;
+            --button-text: #ffffff;
+            --button-hover: #333333;
+            --cat-border: #000000;
+            --gradient-start: #f5f7fa;
+            --gradient-end: #c3cfe2;
+        }
+
+        [data-theme="dark"] {
+            /* Тёмная тема в стиле Grok (X AI) */
+            --bg-primary: #000000;
+            --bg-secondary: #111111;
+            --bg-tertiary: #222222;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --accent-color: #ffffff;
+            --accent-secondary: #dddddd;
+            --border-color: #333333;
+            --shadow-color: rgba(255, 255, 255, 0.1);
+            --card-bg: #111111;
+            --button-bg: #ffffff;
+            --button-text: #000000;
+            --button-hover: #dddddd;
+            --cat-border: #ffffff;
+            --gradient-start: #000000;
+            --gradient-end: #222222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            overflow: hidden;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        
+        /* Панель управления темой */
+        .theme-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .theme-toggle {
+            background: var(--button-bg);
+            color: var(--button-text);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 0.9em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--button-hover);
+            transform: translateY(-2px);
+        }
+        
+        .theme-icon {
+            font-size: 1.2em;
+        }
+        
+        header {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h1 {
+            color: var(--accent-color);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        
+        .cat-image {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 20px auto;
+            border: 3px solid var(--cat-border);
+            box-shadow: 0 5px 20px var(--shadow-color);
+            display: block;
+            transition: transform 0.3s ease;
+            background: var(--bg-tertiary);
+        }
+        
+        .cat-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .cat-image.loading {
+            filter: grayscale(100%);
+            opacity: 0.7;
+        }
+        
+        .facts {
+            background: var(--bg-tertiary);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        
+        .facts h2 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .facts ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .facts li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            padding-left: 35px;
+            color: var(--text-secondary);
+        }
+        
+        .facts li:before {
+            content: "•";
+            position: absolute;
+            left: 15px;
+            color: var(--accent-color);
+            font-size: 1.5em;
+        }
+        
+        .facts li:last-child {
+            border-bottom: none;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--button-bg);
+            color: var(--button-text);
+            min-width: 180px;
+            justify-content: center;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px var(--shadow-color);
+            background: var(--button-hover);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .counter {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: var(--text-secondary);
+        }
+        
+        .counter span {
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 1.3em;
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: var(--text-muted);
+            font-size: 0.9em;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .heart {
+            color: #ff6b8b;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Индикатор темы */
+        .theme-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 5px 15px;
+            background: var(--accent-color);
+            color: var(--bg-primary);
+            border-radius: 0 0 15px 0;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Эффект переключения темы */
+        .theme-transition {
+            animation: themeChange 0.5s ease;
+        }
+        
+        @keyframes themeChange {
+            0% { opacity: 0.8; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin-top: 60px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .theme-controls {
+                top: 10px;
+                right: 10px;
+                flex-direction: column;
+            }
+            
+            .theme-toggle {
+                padding: 8px 16px;
+                font-size: 0.8em;
+            }
+        }
+        
+        /* Стиль для системной темы */
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg-primary: #000000;
+                --bg-secondary: #111111;
+                --bg-tertiary: #222222;
+                --text-primary: #ffffff;
+                --text-secondary: #cccccc;
+                --text-muted: #888888;
+                --accent-color: #ffffff;
+                --accent-secondary: #dddddd;
+                --border-color: #333333;
+                --shadow-color: rgba(255, 255, 255, 0.1);
+                --card-bg: #111111;
+                --button-bg: #ffffff;
+                --button-text: #000000;
+                --button-hover: #dddddd;
+                --cat-border: #ffffff;
+                --gradient-start: #000000;
+                --gradient-end: #222222;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Панель управления темой -->
+    <div class="theme-controls">
+        <button class="theme-toggle" id="themeToggle">
+            <span class="theme-icon" id="themeIcon">🌙</span>
+            <span id="themeText">Тёмная тема</span>
+        </button>
+    </div>
+    
+    <div class="container">
+        <!-- Индикатор текущей темы -->
+        <div class="theme-indicator" id="themeIndicator">
+            Светлая
+        </div>
+        
+        <header>
+            <h1>🐱 Мир Котиков 🐱</h1>
+            <p class="subtitle">Добро пожаловать в самое милое место интернета!</p>
+        </header>
+        
+        <main>
+            <img 
+                src="https://cataas.com/cat?width=400&height=300" 
+                alt="Случайный котик" 
+                class="cat-image" 
+                id="catImage"
+                onerror="this.src='https://placekitten.com/400/300'"
+            >
+            
+            <div class="buttons">
+                <button class="btn btn-new-cat" onclick="loadNewCat()">
+                    <span>🔄</span> Новый котик
+                </button>
+                <button class="btn btn-love" onclick="sendLove()">
+                    <span class="heart">❤️</span> Отправить любовь
+                </button>
+            </div>
+            
+            <div class="counter">
+                Котиков просмотрено: <span id="counter">1</span>
+            </div>
+            
+            <div class="facts">
+                <h2>Интересные факты о котиках:</h2>
+                <ul>
+                    <li>Кошки спят около 16 часов в день</li>
+                    <li>У кошек 32 мышцы в каждом ухе</li>
+                    <li>Кошки могут поворачивать уши на 180 градусов</li>
+                    <li>Мурлыкание кошки лечит и успокаивает</li>
+                    <li>Кошки не чувствуют сладкий вкус</li>
+                    <li>Усы помогают кошкам ориентироваться в пространстве</li>
+                </ul>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Сделано с <span class="heart">❤️</span> для всех любителей котиков</p>
+            <p>Тема: <span id="currentTheme">Светлая</span> | Обновляйте страницу для новых милых котиков!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Управление темой
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const themeIndicator = document.getElementById('themeIndicator');
+        const currentThemeSpan = document.getElementById('currentTheme');
+        const html = document.documentElement;
+        
+        // Проверяем сохранённую тему или системные настройки
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Устанавливаем начальную тему
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+            updateThemeUI(savedTheme);
+        } else if (prefersDark) {
+            html.setAttribute('data-theme', 'dark');
+            updateThemeUI('dark');
+        }
+        
+        // Функция обновления UI темы
+        function updateThemeUI(theme) {
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Светлая тема';
+                themeIndicator.textContent = 'Тёмная';
+                themeIndicator.style.background = '#ffffff';
+                themeIndicator.style.color = '#000000';
+                currentThemeSpan.textContent = 'Тёмная (Grok стиль)';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Тёмная тема';
+                themeIndicator.textContent = 'Светлая';
+                themeIndicator.style.background = '#000000';
+                themeIndicator.style.color = '#ffffff';
+                currentThemeSpan.textContent = 'Светлая';
+            }
+            
+            // Анимация перехода
+            document.body.classList.add('theme-transition');
+            setTimeout(() => {
+                document.body.classList.remove('theme-transition');
+            }, 500);
+        }
+        
+        // Переключение темы
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeUI(newTheme);
+        });
+        
+        // Слушаем изменение системной темы
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                html.setAttribute('data-theme', newTheme);
+                updateThemeUI(newTheme);
+            }
+        });
+        
+        // Логика котиков
+        let catCounter = 1;
+        
+        function loadNewCat() {
+            const catImage = document.getElementById('catImage');
+            const counter = document.getElementById('counter');
+            
+            // Показываем индикатор загрузки
+            catImage.classList.add('loading');
+            
+            // Меняем котика с timestamp чтобы избежать кэша
+            catImage.src = `https://cataas.com/cat?width=400&height=300&t=${Date.now()}`;
+            
+            // Анимация
+            catImage.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                catImage.style.transform = 'scale(1)';
+                catImage.classList.remove('loading');
+            }, 300);
+            
+            // Увеличиваем счетчик
+            catCounter++;
+            counter.textContent = catCounter;
+            
+            // Воспроизводим звук
+            playMeow();
+        }
+        
+        function sendLove() {
+            const loveMessages = [
+                '💖 Любовь отправлена котику! Спасибо за заботу! 💖',
+                '🐾 Котик получил вашу любовь и мурлычет от счастья! 🐾',
+                '❤️ Ваша любовь сделала этот мир лучше для котиков! ❤️',
+                '✨ Котик благодарен за вашу любовь и отправляет вам мур-мяу! ✨'
+            ];
+            
+            const randomMessage = loveMessages[Math.floor(Math.random() * loveMessages.length)];
+            alert(randomMessage);
+            
+            // Анимация сердечек
+            for(let i = 0; i < 12; i++) {
+                createHeart();
+            }
+        }
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            heart.style.opacity = '0.8';
+            heart.style.zIndex = '9999';
+            heart.style.pointerEvents = 'none';
+            heart.style.animation = `floatUp ${Math.random() * 2 + 2}s ease-in forwards`;
+            
+            document.body.appendChild(heart);
+            
+            // Удаляем сердечко после анимации
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+        
+        function playMeow() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.1);
+                oscillator.frequency.exponentialRampToValueAtTime(150, audioContext.currentTime + 0.2);
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (e) {
+                console.log('Аудио не поддерживается');
+            }
+        }
+        
+        // Добавляем стили для анимации сердечек
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Обновляем котика при клике на картинку
+        document.getElementById('catImage').addEventListener('click', loadNewCat);
+        
+        // Автоматическая смена котика каждые 30 секунд
+        setInterval(loadNewCat, 30000);
+        
+        console.log('🐱 Мяу! Страница котиков загружена! 🐱');
+        console.log('🌙 Тёмная тема в стиле Grok готова к использованию!');
+    </script>
+</body>
+</html>
