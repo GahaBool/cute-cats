@@ -154,7 +154,7 @@
 
         .header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             width: 100%;
             padding: 0 10px;
         }
@@ -203,18 +203,84 @@
             50% { transform: translateY(-5px); }
         }
 
+        /* Контейнер выбора сервера */
+        .server-selector {
+            margin: 15px 0;
+            width: min(90vw, 350px);
+        }
+
+        .server-label {
+            display: block;
+            font-size: clamp(11px, 3vw, 13px);
+            color: #888888;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .server-select {
+            width: 100%;
+            padding: 12px 15px;
+            background: #111111;
+            border: 1px solid #333333;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(12px, 3.5vw, 14px);
+            appearance: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+        }
+
+        .server-select:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+
+        .server-select:hover {
+            border-color: #00ff00;
+        }
+
+        /* Стили для опций с флагами */
+        .server-select option {
+            background: #111111;
+            color: #ffffff;
+            padding: 10px;
+        }
+
+        /* Флаги в выпадающем списке */
+        .flag-icon {
+            display: inline-block;
+            width: 20px;
+            height: 15px;
+            margin-right: 10px;
+            vertical-align: middle;
+            border: 1px solid #333;
+        }
+
+        .flag-nl {
+            background: linear-gradient(to bottom, #21468b 33%, #fff 33%, #fff 66%, #ae1c28 66%);
+        }
+
+        .flag-se {
+            background: linear-gradient(to bottom, #005293 33%, #fecb00 33%, #fecb00 66%, #005293 66%);
+        }
+
         .qr-container {
             position: relative;
             background: #111111;
-            padding: clamp(15px, 4vw, 30px);
+            padding: clamp(10px, 3vw, 20px);
             border-radius: 0;
             border: 2px solid #333333;
-            margin: 20px 0;
+            margin: 15px 0;
             box-shadow: 
                 0 0 20px rgba(0, 255, 0, 0.1),
                 inset 0 0 20px rgba(0, 255, 0, 0.05);
             transition: all 0.3s ease;
-            width: min(90vw, 350px);
+            width: min(80vw, 320px);
             box-sizing: border-box;
         }
 
@@ -227,10 +293,11 @@
 
         #main-qr-code {
             background: #ffffff;
-            padding: clamp(10px, 3vw, 15px);
+            padding: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 180px;
         }
 
         #main-qr-code img {
@@ -238,6 +305,7 @@
             image-rendering: crisp-edges;
             max-width: 100%;
             height: auto;
+            max-width: 220px;
         }
 
         .status-indicator {
@@ -269,7 +337,7 @@
         .buttons {
             display: flex;
             gap: 12px;
-            margin-top: 30px;
+            margin-top: 25px;
             width: 100%;
             max-width: 400px;
             flex-wrap: wrap;
@@ -450,11 +518,11 @@
 
         #qr-code-container {
             background: #ffffff;
-            padding: clamp(20px, 5vw, 30px);
+            padding: clamp(15px, 4vw, 25px);
             border: 2px solid #00ff00;
             box-shadow: 0 0 40px rgba(0, 255, 0, 0.3);
-            max-width: min(90vw, 400px);
-            max-height: min(90vh, 400px);
+            max-width: min(80vw, 350px);
+            max-height: min(80vh, 350px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -474,13 +542,32 @@
             }
             
             .header {
-                margin-bottom: 15px;
+                margin-bottom: 10px;
+            }
+            
+            .server-selector {
+                width: 95vw;
+                margin: 10px 0;
+            }
+            
+            .server-select {
+                font-size: 12px;
+                padding: 10px;
             }
             
             .qr-container {
-                margin: 15px 0;
-                width: 95vw;
-                padding: 15px;
+                margin: 10px 0;
+                width: 90vw;
+                padding: 10px;
+            }
+            
+            #main-qr-code {
+                padding: 6px;
+                min-height: 160px;
+            }
+            
+            #main-qr-code img {
+                max-width: 180px;
             }
             
             .buttons {
@@ -500,14 +587,6 @@
                 gap: 10px;
             }
             
-            #main-qr-code {
-                padding: 10px;
-            }
-            
-            #main-qr-code img {
-                max-width: 250px;
-            }
-            
             .console-log {
                 font-size: 8px;
                 max-height: 60px;
@@ -523,12 +602,17 @@
                 font-size: 9px;
             }
             
+            .server-select {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+            
             .qr-container {
-                padding: 10px;
+                padding: 8px;
             }
             
             #main-qr-code img {
-                max-width: 200px;
+                max-width: 150px;
             }
         }
 
@@ -553,18 +637,32 @@
             
             .header {
                 flex: 0 0 100%;
-                margin-bottom: 10px;
+                margin-bottom: 5px;
+            }
+            
+            .server-selector {
+                flex: 0 0 100%;
+                margin: 8px 0;
             }
             
             .qr-container {
-                margin: 0 10px;
+                margin: 0 5px;
                 width: auto;
-                min-width: 250px;
+                min-width: 200px;
+                padding: 8px;
+            }
+            
+            #main-qr-code {
+                min-height: 140px;
+            }
+            
+            #main-qr-code img {
+                max-width: 160px;
             }
             
             .status-indicator {
                 flex: 0 0 100%;
-                margin-top: 10px;
+                margin-top: 5px;
             }
             
             .buttons {
@@ -584,8 +682,12 @@
                 justify-content: center;
             }
             
+            .server-selector {
+                margin: 20px 0;
+            }
+            
             .qr-container {
-                margin: 30px 0;
+                margin: 20px 0;
             }
         }
 
@@ -639,6 +741,19 @@
             <div class="subtitle">SECURE QR AUTHENTICATION</div>
         </div>
 
+        <!-- Выбор сервера -->
+        <div class="server-selector">
+            <label class="server-label terminal-text">SELECT SERVER LOCATION</label>
+            <select class="server-select" x-model="selectedServer" @change="updateQRCode()">
+                <option value="cute-cats-netherlands">
+                    <span class="flag-icon flag-nl"></span> NETHERLANDS SERVER
+                </option>
+                <option value="cute-cats-sweden">
+                    <span class="flag-icon flag-se"></span> SWEDEN SERVER
+                </option>
+            </select>
+        </div>
+
         <div class="qr-container">
             <div id="main-qr-code"></div>
         </div>
@@ -664,7 +779,11 @@
     </div>
 
 <script>
-    const ACCESS_CODE = "https://cute-cats.ru:2096/cute-cats/s18nyglhxnaxizt8";
+    // Определяем QR-коды для разных серверов
+    const QR_CODES = {
+        'cute-cats-netherlands': 'https://cute-cats.ru:2096/cute-cats/s18nyglhxnaxizt8',
+        'cute-cats-sweden': 'https://cute-cats.ru:2096/cute-cats/5k73fxzgq6fzq6vt'
+    };
 
     // Создаем бинарный дождь с черепами и цифрами
     function createBinaryRain() {
@@ -757,11 +876,47 @@
 
     function data() {
         return {
+            selectedServer: 'cute-cats-netherlands',
+            currentQRCode: QR_CODES['cute-cats-netherlands'],
             isQRCodeVisible: false,
+
+            init() {
+                // Инициализируем QR-код
+                this.updateQRCode();
+            },
+
+            updateQRCode() {
+                this.currentQRCode = QR_CODES[this.selectedServer];
+                // Используем меньший размер QR-кода
+                this.generateQRCode(this.currentQRCode, "main-qr-code", window.innerWidth < 480 ? 4 : 5);
+                
+                // Обновляем статус в консоли (если она видна)
+                if (window.innerWidth >= 768) {
+                    const serverName = this.selectedServer === 'cute-cats-netherlands' ? 'NETHERLANDS' : 'SWEDEN';
+                    const line = document.createElement('div');
+                    line.className = 'console-line terminal-text';
+                    
+                    const iconSpan = document.createElement('span');
+                    iconSpan.className = 'console-icon';
+                    iconSpan.textContent = '📍';
+                    line.appendChild(iconSpan);
+                    
+                    line.appendChild(document.createTextNode(` > SWITCHED TO ${serverName} SERVER`));
+                    
+                    const consoleLog = document.getElementById('consoleLog');
+                    consoleLog.appendChild(line);
+                    
+                    if (consoleLog.children.length > 8) {
+                        consoleLog.removeChild(consoleLog.firstChild);
+                    }
+                    
+                    consoleLog.scrollTop = consoleLog.scrollHeight;
+                }
+            },
 
             copyToClipboard() {
                 if (navigator.clipboard && window.isSecureContext) {
-                    navigator.clipboard.writeText(ACCESS_CODE).then(() => {
+                    navigator.clipboard.writeText(this.currentQRCode).then(() => {
                         this.showAlert("🔐 CODE COPIED TO CLIPBOARD");
                     }).catch(err => {
                         this.copyFallback();
@@ -772,7 +927,8 @@
             },
 
             showLargeQR() {
-                this.generateQRCode(ACCESS_CODE, "qr-code-container", window.innerWidth < 480 ? 6 : 8);
+                // Используем чуть больший размер для увеличенного QR
+                this.generateQRCode(this.currentQRCode, "qr-code-container", window.innerWidth < 480 ? 6 : 7);
                 document.getElementById('qr-overlay').classList.add('active');
                 this.isQRCodeVisible = true;
             },
@@ -782,7 +938,7 @@
                 this.isQRCodeVisible = false;
             },
 
-            generateQRCode(text, elementId, size = 6) {
+            generateQRCode(text, elementId, size = 5) {
                 const container = document.getElementById(elementId);
                 container.innerHTML = "";
                 const qr = qrcode(0, "M");
@@ -833,7 +989,7 @@
 
             copyFallback() {
                 const textArea = document.createElement("textarea");
-                textArea.value = ACCESS_CODE;
+                textArea.value = this.currentQRCode;
                 textArea.style.position = "fixed";
                 textArea.style.opacity = "0";
                 textArea.style.fontSize = "16px"; // Предотвращает zoom на iOS
@@ -855,13 +1011,6 @@
 
     // Инициализация
     document.addEventListener('DOMContentLoaded', function() {
-        // Генерируем основной QR-код (черный на белом)
-        const qr = qrcode(0, "M");
-        qr.addData(ACCESS_CODE);
-        qr.make();
-        const qrSize = window.innerWidth < 480 ? 5 : 6;
-        document.getElementById('main-qr-code').innerHTML = qr.createImgTag(qrSize);
-        
         // Создаем летающие элементы на заднем фоне
         createBinaryRain();
         createFloatingHackers();
