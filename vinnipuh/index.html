@@ -6,16 +6,54 @@
     <title>SYSTEM ACCESS</title>
     <meta name="description" content="SECURE ACCESS POINT">
 
-    <!-- Хакерские иконки -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💀</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>👨‍💻</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
 
+        /* ВСТРОЕННЫЕ SVG-ИКОНКИ */
+        .icon-copy {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2300ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>');
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+            vertical-align: middle;
+            filter: drop-shadow(0 0 1px #00ff00);
+        }
+
+        .icon-enlarge {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>');
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+            vertical-align: middle;
+            filter: drop-shadow(0 0 1px #000000);
+        }
+
+        .flag-sweden {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10" width="16" height="10"><rect width="16" height="10" fill="%23006aa7"/><rect x="5" width="2" height="10" fill="%23fecc00"/><rect y="4" width="16" height="2" fill="%23fecc00"/></svg>');
+            width: 18px;
+            height: 11.25px;
+            margin-right: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1px;
+            vertical-align: middle;
+        }
+
+        .flag-netherlands {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10" width="16" height="10"><rect width="16" height="10" fill="%23ffffff"/><rect width="16" height="3.333" fill="%2321468b"/><rect y="6.667" width="16" height="3.333" fill="%23ae1c28"/></svg>');
+            width: 18px;
+            height: 11.25px;
+            margin-right: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1px;
+            vertical-align: middle;
+        }
+        
         * {
             box-sizing: border-box;
             margin: 0;
@@ -45,7 +83,7 @@
             touch-action: manipulation;
         }
 
-        /* Хакерская сетка - оптимизирована для мобильных */
+        /* Хакерская сетка */
         body::before {
             content: "";
             position: fixed;
@@ -61,7 +99,7 @@
             z-index: 1;
         }
 
-        /* Мигающие точки - оптимизировано */
+        /* Сканирующая линия */
         .scan-line {
             position: fixed;
             top: 0;
@@ -102,7 +140,6 @@
             color: #ffffff;
         }
 
-        /* Упрощенные глитч-эффекты для мобильных */
         .glitch::before,
         .glitch::after {
             content: attr(data-text);
@@ -141,30 +178,32 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             min-height: 100vh;
             min-height: -webkit-fill-available;
-            padding: 15px;
-            padding-bottom: env(safe-area-inset-bottom, 15px);
-            padding-top: env(safe-area-inset-top, 15px);
+            padding: 10px;
+            padding-bottom: env(safe-area-inset-bottom, 10px);
+            padding-top: env(safe-area-inset-top, 10px);
             box-sizing: border-box;
             width: 100%;
             max-width: 100%;
+            overflow: hidden;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             width: 100%;
             padding: 0 10px;
+            flex-shrink: 0;
         }
 
         .title {
-            font-size: clamp(18px, 5vw, 24px);
+            font-size: clamp(16px, 4vw, 20px);
             font-weight: 700;
-            letter-spacing: clamp(1px, 1vw, 3px);
+            letter-spacing: clamp(1px, 0.8vw, 2px);
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             color: #ffffff;
             line-height: 1.2;
             word-wrap: break-word;
@@ -172,20 +211,20 @@
         }
 
         .subtitle {
-            font-size: clamp(10px, 3vw, 12px);
+            font-size: clamp(9px, 2.5vw, 11px);
             color: #888888;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
             line-height: 1.3;
         }
 
-        /* Хакерские иконки в заголовке - адаптивные */
+        /* Хакерские иконки в заголовке */
         .hacker-icons {
             display: flex;
             justify-content: center;
-            gap: clamp(8px, 3vw, 20px);
-            margin-bottom: 12px;
-            font-size: clamp(18px, 6vw, 24px);
+            gap: clamp(6px, 2vw, 15px);
+            margin-bottom: 8px;
+            font-size: clamp(16px, 5vw, 20px);
         }
 
         .hacker-icon {
@@ -200,104 +239,80 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        /* Контейнер выбора сервера */
-        .server-selector {
-            margin: 15px 0;
-            width: min(90vw, 350px);
-        }
-
-        .server-label {
-            display: block;
-            font-size: clamp(11px, 3vw, 13px);
-            color: #888888;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-        }
-
-        .server-select {
-            width: 100%;
-            padding: 12px 15px;
-            background: #111111;
-            border: 1px solid #333333;
-            color: #ffffff;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: clamp(12px, 3.5vw, 14px);
-            appearance: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: left;
-            position: relative;
-        }
-
-        .server-select:focus {
-            outline: none;
-            border-color: #00ff00;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
-        }
-
-        .server-select:hover {
-            border-color: #00ff00;
-        }
-
-        /* Стили для опций с флагами */
-        .server-select option {
-            background: #111111;
-            color: #ffffff;
-            padding: 10px;
-        }
-
-        /* Флаги в выпадающем списке */
-        .flag-icon {
-            display: inline-block;
-            width: 20px;
-            height: 15px;
-            margin-right: 10px;
-            vertical-align: middle;
-            border: 1px solid #333;
-        }
-
-        .flag-nl {
-            background: linear-gradient(to bottom, #21468b 33%, #fff 33%, #fff 66%, #ae1c28 66%);
-        }
-
-        .flag-se {
-            background: linear-gradient(to bottom, #005293 33%, #fecb00 33%, #fecb00 66%, #005293 66%);
+            50% { transform: translateY(-3px); }
         }
 
         .qr-container {
             position: relative;
             background: #111111;
-            padding: clamp(10px, 3vw, 20px);
+            padding: clamp(8px, 2vw, 15px);
             border-radius: 0;
             border: 2px solid #333333;
-            margin: 15px 0;
+            margin: 10px 0;
             box-shadow: 
-                0 0 20px rgba(0, 255, 0, 0.1),
-                inset 0 0 20px rgba(0, 255, 0, 0.05);
+                0 0 15px rgba(0, 255, 0, 0.1),
+                inset 0 0 15px rgba(0, 255, 0, 0.05);
             transition: all 0.3s ease;
-            width: min(80vw, 320px);
+            width: min(85vw, 280px);
             box-sizing: border-box;
+            flex-shrink: 0;
         }
 
-        .qr-container:hover {
+        .qr-selector-block {
+            width: min(85vw, 280px);
+            margin-top: 8px;
+            padding: 0 8px;
+            box-sizing: border-box;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .qr-selector-buttons {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .qr-select-btn {
+            padding: clamp(6px, 1.5vw, 8px) clamp(8px, 2vw, 12px);
+            border: 1px solid #333333;
+            background: transparent;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(9px, 2.5vw, 11px);
+            font-weight: 500;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+            min-width: 90px;
+            max-width: 130px;
+            -webkit-touch-callout: none;
+            user-select: none;
+            touch-action: manipulation;
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .qr-select-btn.active {
             border-color: #00ff00;
-            box-shadow: 
-                0 0 30px rgba(0, 255, 0, 0.2),
-                inset 0 0 30px rgba(0, 255, 0, 0.1);
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 4px rgba(0, 255, 0, 0.5);
         }
 
         #main-qr-code {
             background: #ffffff;
-            padding: 8px;
+            padding: 6px;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 180px;
+            min-height: 150px;
         }
 
         #main-qr-code img {
@@ -305,25 +320,26 @@
             image-rendering: crisp-edges;
             max-width: 100%;
             height: auto;
-            max-width: 220px;
+            max-width: 180px;
         }
 
         .status-indicator {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-top: 15px;
-            font-size: clamp(10px, 3vw, 12px);
+            gap: 6px;
+            margin-top: 12px;
+            font-size: clamp(9px, 2.5vw, 11px);
             flex-wrap: wrap;
             text-align: center;
-            padding: 0 10px;
+            padding: 0 8px;
+            flex-shrink: 0;
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
-            min-width: 8px;
+            width: 6px;
+            height: 6px;
+            min-width: 6px;
             background: #00ff00;
             border-radius: 50%;
             animation: pulse 2s infinite;
@@ -336,24 +352,25 @@
 
         .buttons {
             display: flex;
-            gap: 12px;
-            margin-top: 25px;
+            gap: 8px;
+            margin-top: 20px;
             width: 100%;
-            max-width: 400px;
-            flex-wrap: wrap;
+            max-width: 350px;
+            flex-wrap: nowrap;
             justify-content: center;
-            padding: 0 10px;
+            padding: 0 8px;
+            flex-shrink: 0;
         }
 
         .btn {
-            padding: clamp(10px, 3vw, 12px) clamp(15px, 4vw, 30px);
+            padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 20px);
             border: 1px solid #333333;
             background: transparent;
             color: #ffffff;
             font-family: 'JetBrains Mono', monospace;
-            font-size: clamp(12px, 3.5vw, 14px);
+            font-size: clamp(11px, 3vw, 13px);
             font-weight: 600;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -362,13 +379,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            flex: 1;
-            min-width: 140px;
-            max-width: 200px;
+            gap: 5px;
             -webkit-touch-callout: none;
             user-select: none;
             touch-action: manipulation;
+        }
+        
+        .btn-copy {
+            flex: 2 1 60%;
+            max-width: 200px;
+            border-color: #00ff00;
+            color: #00ff00;
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+            background: rgba(0, 255, 0, 0.05);
+        }
+        
+        .btn-enlarge {
+            flex: 1 1 30%;
+            border-color: #555555;
+            color: #888888;
+        }
+
+        .btn-enlarge:hover {
+            border-color: #00ff00;
+            color: #00ff00;
         }
 
         .btn::before {
@@ -380,12 +414,6 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
             transition: left 0.5s ease;
-        }
-
-        .btn:hover,
-        .btn:active {
-            border-color: #00ff00;
-            color: #00ff00;
         }
 
         .btn:hover::before,
@@ -419,6 +447,12 @@
             text-shadow: 0 0 5px #00ff00;
         }
 
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
         /* Летающие иконки хакеров */
         .floating-hackers {
             position: fixed;
@@ -430,7 +464,7 @@
 
         .floating-icon {
             position: absolute;
-            font-size: 20px;
+            font-size: 16px;
             opacity: 0.1;
             color: #00ff00;
             animation: float-around 20s linear infinite;
@@ -442,57 +476,50 @@
                 transform: translate(0, 0) rotate(0deg);
             }
             25% {
-                transform: translate(100px, 100px) rotate(90deg);
+                transform: translate(80px, 80px) rotate(90deg);
             }
             50% {
-                transform: translate(50px, 200px) rotate(180deg);
+                transform: translate(40px, 160px) rotate(180deg);
             }
             75% {
-                transform: translate(-50px, 100px) rotate(270deg);
+                transform: translate(-40px, 80px) rotate(270deg);
             }
             100% {
                 transform: translate(0, 0) rotate(360deg);
             }
         }
 
-        @keyframes fall {
-            to {
-                transform: translateY(100vh);
-            }
-        }
-
-        /* Консольные сообщения - адаптивные */
+        /* Консольные сообщения */
         .console-log {
             position: fixed;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
+            bottom: 5px;
+            left: 5px;
+            right: 5px;
             font-family: 'Share Tech Mono', monospace;
-            font-size: 9px;
+            font-size: 8px;
             color: #00ff00;
             opacity: 0.7;
-            max-height: 80px;
+            max-height: 60px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             background: rgba(0, 0, 0, 0.3);
-            padding: 5px;
-            border-radius: 3px;
-            display: none; /* Скрываем на мобильных по умолчанию */
+            padding: 4px;
+            border-radius: 2px;
+            display: none;
         }
 
         .console-line {
-            margin-bottom: 3px;
+            margin-bottom: 2px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        /* Хакерские иконки в консоли */
         .console-icon {
-            margin-right: 4px;
+            margin-right: 3px;
         }
 
-        /* Оверлей QR - адаптивный */
+        /* Оверлей QR */
         .overlay {
             position: fixed;
             top: 0;
@@ -507,7 +534,7 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
         }
 
@@ -518,11 +545,11 @@
 
         #qr-code-container {
             background: #ffffff;
-            padding: clamp(15px, 4vw, 25px);
+            padding: clamp(15px, 3vw, 20px);
             border: 2px solid #00ff00;
-            box-shadow: 0 0 40px rgba(0, 255, 0, 0.3);
-            max-width: min(80vw, 350px);
-            max-height: min(80vh, 350px);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+            max-width: min(80vw, 300px);
+            max-height: min(80vh, 300px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -533,78 +560,75 @@
             height: auto;
         }
 
-        /* Адаптивные медиа запросы */
+        /* Адаптивность для мобильных */
         @media (max-width: 480px) {
             .main-container {
-                padding: 10px;
+                padding: 8px;
                 justify-content: flex-start;
-                padding-top: max(15px, env(safe-area-inset-top));
+                padding-top: max(10px, env(safe-area-inset-top));
             }
             
             .header {
                 margin-bottom: 10px;
             }
             
-            .server-selector {
-                width: 95vw;
-                margin: 10px 0;
-            }
-            
-            .server-select {
-                font-size: 12px;
-                padding: 10px;
-            }
-            
             .qr-container {
-                margin: 10px 0;
+                margin: 8px 0;
                 width: 90vw;
                 padding: 10px;
             }
             
-            #main-qr-code {
-                padding: 6px;
-                min-height: 160px;
-            }
-            
-            #main-qr-code img {
-                max-width: 180px;
+            .qr-selector-block {
+                width: 90vw;
             }
             
             .buttons {
-                flex-direction: column;
-                gap: 8px;
-                margin-top: 20px;
+                flex-wrap: nowrap;
+                gap: 6px;
+                margin-top: 15px;
             }
             
-            .btn {
-                min-width: 100%;
-                max-width: 100%;
-                padding: 12px 20px;
+            .btn-copy {
+                flex: 2 1 auto;
+                min-width: unset;
+                max-width: unset;
+                padding: 10px 12px;
             }
             
-            .hacker-icons {
-                font-size: 20px;
-                gap: 10px;
+            .btn-enlarge {
+                flex: 1 1 auto;
+                min-width: unset;
+                max-width: unset;
+                padding: 10px 12px;
+            }
+            
+            .qr-select-btn {
+                min-width: 100px;
+                max-width: 50%;
+            }
+            
+            #main-qr-code {
+                padding: 5px;
+                min-height: 140px;
+            }
+            
+            #main-qr-code img {
+                max-width: 160px;
             }
             
             .console-log {
-                font-size: 8px;
-                max-height: 60px;
+                font-size: 7px;
+                max-height: 50px;
             }
         }
 
         @media (max-width: 320px) {
             .title {
-                font-size: 16px;
+                font-size: 14px;
             }
             
             .subtitle {
-                font-size: 9px;
-            }
-            
-            .server-select {
-                padding: 8px 10px;
-                font-size: 11px;
+                font-size: 8px;
             }
             
             .qr-container {
@@ -612,7 +636,12 @@
             }
             
             #main-qr-code img {
-                max-width: 150px;
+                max-width: 140px;
+            }
+            
+            .qr-select-btn {
+                min-width: 85px;
+                font-size: 9px;
             }
         }
 
@@ -626,13 +655,12 @@
             }
         }
 
-        /* Поддержка горизонтальной ориентации */
         @media (max-height: 500px) and (orientation: landscape) {
             .main-container {
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: space-around;
-                padding: 10px;
+                padding: 8px;
             }
             
             .header {
@@ -640,35 +668,36 @@
                 margin-bottom: 5px;
             }
             
-            .server-selector {
+            .qr-selector-block {
                 flex: 0 0 100%;
-                margin: 8px 0;
+                margin: 6px 0;
             }
             
             .qr-container {
-                margin: 0 5px;
+                margin: 0 6px;
                 width: auto;
-                min-width: 200px;
+                min-width: 180px;
                 padding: 8px;
             }
             
             #main-qr-code {
-                min-height: 140px;
+                min-height: 120px;
             }
             
             #main-qr-code img {
-                max-width: 160px;
+                max-width: 140px;
             }
             
             .status-indicator {
                 flex: 0 0 100%;
-                margin-top: 5px;
+                margin-top: 6px;
             }
             
             .buttons {
                 flex-direction: column;
                 margin-top: 0;
-                max-width: 150px;
+                max-width: 120px;
+                gap: 5px;
             }
             
             .console-log {
@@ -676,14 +705,9 @@
             }
         }
 
-        /* Высокие экраны */
         @media (min-height: 800px) {
             .main-container {
                 justify-content: center;
-            }
-            
-            .server-selector {
-                margin: 20px 0;
             }
             
             .qr-container {
@@ -691,18 +715,15 @@
             }
         }
 
-        /* Поддержка темной темы систем */
         @media (prefers-color-scheme: dark) {
             body {
                 background: #000000;
             }
         }
 
-        /* Отключение анимаций для пользователей с настройками */
         @media (prefers-reduced-motion: reduce) {
             .scan-line,
             .hacker-icon,
-            .binary-digit,
             .floating-element,
             .floating-icon,
             .glitch::before,
@@ -716,21 +737,13 @@
 </head>
 
 <body>
-    <!-- Бинарный дождь с черепами и цифрами -->
     <div class="binary-rain" id="binaryRain"></div>
-    
-    <!-- Плавающие иконки хакеров -->
     <div class="floating-hackers" id="floatingHackers"></div>
-    
-    <!-- Сканирующая линия -->
     <div class="scan-line"></div>
-    
-    <!-- Консольные сообщения -->
     <div class="console-log" id="consoleLog"></div>
 
     <div class="main-container">
         <div class="header">
-            <!-- Хакерские иконки -->
             <div class="hacker-icons">
                 <div class="hacker-icon">👨‍💻</div>
                 <div class="hacker-icon">💀</div>
@@ -740,18 +753,28 @@
             <div class="title glitch" data-text="SYSTEM ACCESS">SYSTEM ACCESS</div>
             <div class="subtitle">SECURE QR AUTHENTICATION</div>
         </div>
-
-        <!-- Выбор сервера -->
-        <div class="server-selector">
-            <label class="server-label terminal-text">SELECT SERVER LOCATION</label>
-            <select class="server-select" x-model="selectedServer" @change="updateQRCode()">
-                <option value="cute-cats-netherlands">
-                    <span class="flag-icon flag-nl"></span> NETHERLANDS SERVER
-                </option>
-                <option value="cute-cats-sweden">
-                    <span class="flag-icon flag-se"></span> SWEDEN SERVER
-                </option>
-            </select>
+        
+        <div class="qr-selector-block">
+            <div class="subtitle terminal-text">SELECT ACCESS POINT</div>
+            <div class="qr-selector-buttons">
+                <button 
+                    class="qr-select-btn" 
+                    :class="{ 'active': selectedCode.name === QR_CODES[0].name }" 
+                    @click="selectCode(QR_CODES[0])"
+                >
+                    <span class="flag-sweden"></span>
+                    <span x-text="QR_CODES[0].name.toUpperCase()"></span>
+                </button>
+                
+                <button 
+                    class="qr-select-btn" 
+                    :class="{ 'active': selectedCode.name === QR_CODES[1].name }" 
+                    @click="selectCode(QR_CODES[1])"
+                >
+                    <span class="flag-netherlands"></span>
+                    <span x-text="QR_CODES[1].name.toUpperCase()"></span>
+                </button>
+            </div>
         </div>
 
         <div class="qr-container">
@@ -760,16 +783,18 @@
 
         <div class="status-indicator">
             <div class="status-dot"></div>
-            <span class="terminal-text blink">READY FOR SCAN</span>
+            <span class="terminal-text blink">
+                CURRENT CODE: <span x-text="selectedCode.name.toUpperCase()"></span>
+            </span>
         </div>
 
         <div class="buttons">
-            <button class="btn" @click="copyToClipboard">
-                <span>⎘</span> COPY
+            <button class="btn btn-copy" @click="copyToClipboard">
+                <span class="icon-copy"></span> COPY LINK
             </button>
             
-            <button class="btn" @click="showLargeQR">
-                <span>⧉</span> ENLARGE
+            <button class="btn btn-enlarge" @click="showLargeQR">
+                <span class="icon-enlarge"></span> ENLARGE
             </button>
         </div>
     </div>
@@ -779,50 +804,38 @@
     </div>
 
 <script>
-    // Определяем QR-коды для разных серверов
-    const QR_CODES = {
-        'cute-cats-netherlands': 'https://cute-cats.ru:2096/cute-cats/s18nyglhxnaxizt8',
-        'cute-cats-sweden': 'https://cute-cats.ru:2096/cute-cats/5k73fxzgq6fzq6vt'
-    };
+    const QR_CODES = [
+        { name: "sweden", url: "https://cute-cats.ru:2096/cute-cats/5k73fxzgq6fzq6vt" },
+        { name: "netherlands", url: "https://cute-cats.ru:2096/cute-cats/s18nyglhxnaxizt8" }
+    ];
 
-    // Создаем бинарный дождь с черепами и цифрами
     function createBinaryRain() {
         const container = document.getElementById('binaryRain');
         const elements = ['0', '1', '💀', '👨‍💻', '🔐', '⚡', '🔒'];
-        
-        // Количество элементов в зависимости от размера экрана
-        const count = window.innerWidth < 480 ? 30 : 50;
+        const count = window.innerWidth < 480 ? 20 : 30;
         
         for (let i = 0; i < count; i++) {
             const element = document.createElement('div');
             element.className = 'floating-element';
             element.textContent = elements[Math.floor(Math.random() * elements.length)];
-            
-            // Позиция
             element.style.left = Math.random() * 100 + 'vw';
-            element.style.top = Math.random() * -100 + 'px'; // Начинают выше экрана
-            
-            // Анимация
+            element.style.top = Math.random() * -100 + 'px';
             element.style.animationDuration = (Math.random() * 5 + 3) + 's';
             element.style.animationDelay = Math.random() * 2 + 's';
-            
-            // Стили
             element.style.opacity = Math.random() * 0.5 + 0.1;
-            element.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            element.style.fontSize = (Math.random() * 12 + 8) + 'px';
             element.style.filter = `brightness(${Math.random() * 0.5 + 0.5})`;
-            
             container.appendChild(element);
         }
     }
 
-    // Создаем плавающие иконки хакеров
     function createFloatingHackers() {
         if (window.innerWidth < 768) return;
         
         const container = document.getElementById('floatingHackers');
         const hackerIcons = ['👨‍💻', '💀', '🔐', '⚡', '🔒', '💻', '🛡️', '🎮', '🧬', '🌐'];
         
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 10; i++) {
             const icon = document.createElement('div');
             icon.className = 'floating-icon';
             icon.textContent = hackerIcons[Math.floor(Math.random() * hackerIcons.length)];
@@ -830,13 +843,12 @@
             icon.style.top = Math.random() * 100 + 'vh';
             icon.style.animationDuration = (Math.random() * 10 + 10) + 's';
             icon.style.animationDelay = Math.random() * 5 + 's';
-            icon.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            icon.style.fontSize = (Math.random() * 12 + 8) + 'px';
             icon.style.opacity = Math.random() * 0.05 + 0.02;
             container.appendChild(icon);
         }
     }
 
-    // Консольные сообщения - упрощенные для мобильных
     function createConsoleMessages() {
         if (window.innerWidth < 768) return;
         
@@ -850,8 +862,8 @@
         ];
         
         const consoleLog = document.getElementById('consoleLog');
-        
         let index = 0;
+        
         function addMessage() {
             if (index < messages.length) {
                 const line = document.createElement('div');
@@ -873,62 +885,36 @@
         
         addMessage();
     }
-
+    
     function data() {
         return {
-            selectedServer: 'cute-cats-netherlands',
-            currentQRCode: QR_CODES['cute-cats-netherlands'],
             isQRCodeVisible: false,
-
-            init() {
-                // Инициализируем QR-код
-                this.updateQRCode();
-            },
-
-            updateQRCode() {
-                this.currentQRCode = QR_CODES[this.selectedServer];
-                // Используем меньший размер QR-кода
-                this.generateQRCode(this.currentQRCode, "main-qr-code", window.innerWidth < 480 ? 4 : 5);
-                
-                // Обновляем статус в консоли (если она видна)
-                if (window.innerWidth >= 768) {
-                    const serverName = this.selectedServer === 'cute-cats-netherlands' ? 'NETHERLANDS' : 'SWEDEN';
-                    const line = document.createElement('div');
-                    line.className = 'console-line terminal-text';
-                    
-                    const iconSpan = document.createElement('span');
-                    iconSpan.className = 'console-icon';
-                    iconSpan.textContent = '📍';
-                    line.appendChild(iconSpan);
-                    
-                    line.appendChild(document.createTextNode(` > SWITCHED TO ${serverName} SERVER`));
-                    
-                    const consoleLog = document.getElementById('consoleLog');
-                    consoleLog.appendChild(line);
-                    
-                    if (consoleLog.children.length > 8) {
-                        consoleLog.removeChild(consoleLog.firstChild);
-                    }
-                    
-                    consoleLog.scrollTop = consoleLog.scrollHeight;
-                }
+            selectedCode: QR_CODES[0], 
+            
+            selectCode(code) {
+                this.selectedCode = code;
+                // Уменьшенный размер QR-кода
+                this.generateQRCode(code.url, "main-qr-code", window.innerWidth < 480 ? 4 : 5);
+                this.showAlert(`⚡ CODE SELECTED: ${code.name.toUpperCase()}`);
             },
 
             copyToClipboard() {
+                const codeToCopy = this.selectedCode.url; 
+                
                 if (navigator.clipboard && window.isSecureContext) {
-                    navigator.clipboard.writeText(this.currentQRCode).then(() => {
-                        this.showAlert("🔐 CODE COPIED TO CLIPBOARD");
+                    navigator.clipboard.writeText(codeToCopy).then(() => {
+                        this.showAlert(`🔐 ${this.selectedCode.name.toUpperCase()} LINK COPIED`);
                     }).catch(err => {
-                        this.copyFallback();
+                        this.copyFallback(codeToCopy);
                     });
                 } else {
-                    this.copyFallback();
+                    this.copyFallback(codeToCopy);
                 }
             },
 
             showLargeQR() {
-                // Используем чуть больший размер для увеличенного QR
-                this.generateQRCode(this.currentQRCode, "qr-code-container", window.innerWidth < 480 ? 6 : 7);
+                // Уменьшенный размер для увеличенного QR
+                this.generateQRCode(this.selectedCode.url, "qr-code-container", window.innerWidth < 480 ? 5 : 6);
                 document.getElementById('qr-overlay').classList.add('active');
                 this.isQRCodeVisible = true;
             },
@@ -957,25 +943,29 @@
                     background: #000;
                     color: #0f0;
                     border: 1px solid #0f0;
-                    padding: 15px 20px;
+                    padding: 12px 15px;
                     font-family: 'Share Tech Mono', monospace;
-                    font-size: ${window.innerWidth < 480 ? '12px' : '14px'};
+                    font-size: ${window.innerWidth < 480 ? '11px' : '13px'};
                     z-index: 10000;
-                    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+                    box-shadow: 0 0 12px rgba(0, 255, 0, 0.5);
                     display: flex;
                     align-items: center;
-                    gap: 8px;
+                    gap: 6px;
                     max-width: 90vw;
                     text-align: center;
-                    border-radius: 5px;
+                    border-radius: 4px;
                 `;
                 
+                const parts = message.split(' ');
+                const icon = parts[0];
+                const text = parts.slice(1).join(' ');
+                
                 const iconSpan = document.createElement('span');
-                iconSpan.textContent = message.split(' ')[0];
+                iconSpan.textContent = icon;
                 alertBox.appendChild(iconSpan);
                 
                 const textSpan = document.createElement('span');
-                textSpan.textContent = message.substring(message.indexOf(' ') + 1);
+                textSpan.textContent = text;
                 alertBox.appendChild(textSpan);
                 
                 document.body.appendChild(alertBox);
@@ -987,12 +977,12 @@
                 }, 1200);
             },
 
-            copyFallback() {
+            copyFallback(code) { 
                 const textArea = document.createElement("textarea");
-                textArea.value = this.currentQRCode;
+                textArea.value = code;
                 textArea.style.position = "fixed";
                 textArea.style.opacity = "0";
-                textArea.style.fontSize = "16px"; // Предотвращает zoom на iOS
+                textArea.style.fontSize = "16px";
                 document.body.appendChild(textArea);
                 textArea.select();
                 textArea.setSelectionRange(0, 99999);
@@ -1009,14 +999,19 @@
         };
     }
 
-    // Инициализация
     document.addEventListener('DOMContentLoaded', function() {
-        // Создаем летающие элементы на заднем фоне
+        const initialCode = QR_CODES[0].url;
+        const qr = qrcode(0, "M");
+        qr.addData(initialCode);
+        qr.make();
+        // Уменьшенный начальный размер QR-кода
+        const qrSize = window.innerWidth < 480 ? 4 : 5;
+        document.getElementById('main-qr-code').innerHTML = qr.createImgTag(qrSize);
+        
         createBinaryRain();
         createFloatingHackers();
         createConsoleMessages();
         
-        // Периодическое обновление консоли (только на десктопе)
         if (window.innerWidth >= 768) {
             setInterval(() => {
                 const time = new Date().toLocaleTimeString();
@@ -1036,7 +1031,7 @@
                 const consoleLog = document.getElementById('consoleLog');
                 consoleLog.appendChild(line);
                 
-                if (consoleLog.children.length > 8) {
+                if (consoleLog.children.length > 6) {
                     consoleLog.removeChild(consoleLog.firstChild);
                 }
                 
@@ -1044,7 +1039,6 @@
             }, 15000);
         }
         
-        // Обработка изменения ориентации
         window.addEventListener('orientationchange', function() {
             setTimeout(() => {
                 location.reload();
